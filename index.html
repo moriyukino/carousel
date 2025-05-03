@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Carousel Component</title>
+    <style>
+      /*
+SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+*/
+      /*メインカラー；#087f5b
+グレーカラー；#343a40*/
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        color: #343a40;
+        line-height: 1;
+      }
+
+      img {
+        height: 200px; /*htmlでは高さや幅を指定していないので、高さに合うように幅を自動調整する*/
+        border-radius: 8px;
+        transform: scale(1.5); /*画像の拡大、縮小*/
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+      }
+
+      .carousel {
+        width: 800px;
+        background-color: #087f5b;
+        margin: 100px auto;
+        border-radius: 8px;
+        padding: 32px;
+        padding-left: 86px; /*画像の下から緑が見えるようにpaddingで画像を右に押し出す*/
+        padding-right: 48px;
+
+        /*省略記法；padding(top right bottom left)*/
+        display: flex;
+        align-items: center;
+        gap: 86px;
+        position: relative;
+      }
+
+      .testimonial-text {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.5;
+        margin-bottom: 32px;
+        color: #e6fcf5;
+      }
+      .testimonial-author {
+        font-size: 14px;
+        margin-bottom: 4px;
+        color: #c3fae8;
+      }
+      .testimonial-job {
+        font-size: 12px;
+        color: #c3fae8;
+      }
+
+      .btn {
+        background-color: #fff;
+        border: none; /*ボタンタブの場合デフォルトでborderがついている。
+        　　　　　　　　不要な時はnoneでオフにする。*/
+        height: 40px;
+        width: 40px;
+        position: absolute; /*flexコンテナ内にあるため、絶対位置決めをしないと
+        　　　　　　　　　　　　width,heightで指定した値が通らない。*/
+        border-radius: 50%;
+
+        display: flex; /*下記のiconを中央揃えにするために
+        　　　　　　　　　　　親要素のbtnにフレックス追加*/
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+      .btn--left {
+        left: 0;
+        top: 50%; /*親要素(carousel)から垂直方向にセンタリング。top50%で上から半分*/
+        transform: translate(
+          /*tramsformで実際の要素の高さから50%*/ -50%,
+          -50%
+        ); /*水平に左に移動(-50%)垂直に上に移動(-50%)　50%は要素の半分移動*/
+      }
+
+      .btn--right {
+        /*親要素との関係*/
+        right: 0;
+        top: 50%;
+        /*子要素との関係*/
+        transform: translate(50%, -50%);
+      }
+
+      .btn-icon {
+        height: 24px;
+        width: 24px;
+        stroke: #087f5b; /*塗りつぶし*/
+      }
+
+      .dots {
+        position: absolute;
+        left: 50%; /*要素の開始位置が基本的に親要素の中央付近に移動*/
+        bottom: 0;
+        transform: translate(-50%, 32px); /*要素の半分左に戻る*/
+        display: flex;
+        gap: 12px;
+      }
+
+      .dot {
+        height: 12px;
+        width: 12px;
+        background-color: #fff;
+        border: 2px solid #087f5b;
+      }
+
+      .dot--fill {
+        background-color: #087f5b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="carousel">
+      <img src="maria.jpg" alt="女性の写真" />
+      <blockquote class="testimonial">
+        <p class="testimonial-text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis,
+          quos magni dolore excepturi, repellat fugit nesciunt pariatur
+          doloremque minus ab sequi nihil tenetur sint, voluptate ex aliquid
+          veniam ducimus culpa.
+        </p>
+        <p class="testimonial-author">Maria de Alemeida</p>
+        <p class="testimonial-job">Senior Product Manager at EDP comercial</p>
+      </blockquote>
+      <button class="btn btn--left">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="btn-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 19.5 8.25 12l7.5-7.5"
+          />
+        </svg>
+      </button>
+      <button class="btn btn--right">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="btn-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m8.25 4.5 7.5 7.5-7.5 7.5"
+          />
+        </svg>
+      </button>
+      <div class="dots">
+        <button class="dot dot--fill">&nbsp;;</button>
+        <button class="dot">&nbsp;;</button>
+        <button class="dot">&nbsp;;</button>
+        <button class="dot">&nbsp;;</button>
+      </div>
+    </div>
+  </body>
+</html>
